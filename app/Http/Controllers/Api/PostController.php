@@ -11,6 +11,24 @@ class PostController extends Controller
 {
     public function index()
     {
-        return PostResource::collection(Post::query()->with('category')->paginate(10));
+        $orderColumns = \request('order_column', 'created_at');
+        if (!in_array($orderColumns, ['id', 'title', 'created_at'])){
+            $orderColumns = 'created_at';
+        }
+        $orderDirections = \request('order_direction', 'desc');
+        if (!in_array($orderDirections, ['asc', 'desc'])){
+            $orderDirections = 'desc';
+        }
+
+        $posts =  Post::query()
+            ->with('category')
+            ->when(\request('category') != '', function ($query){
+                $query->where('category_id', \request('category'));
+            })
+            ->orderBy($orderColumns, $orderDirections)
+            ->paginate(2);
+
+
+        return PostResource::collection($posts);
     }
 }
