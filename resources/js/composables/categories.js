@@ -1,13 +1,14 @@
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 export default function useCategories() {
-    const categories = ref([]);
+    const categories = ref({})
 
     const getCategories = async () => {
         axios.get('/api/categories')
-            .then(res => categories.value = res.data.data)
-            .catch(error => console.log(error))
+            .then(response => {
+                categories.value = response.data.data;
+            })
     }
 
-    return { categories, getCategories}
+    return { categories, getCategories }
 }

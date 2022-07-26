@@ -1,15 +1,11 @@
-import './bootstrap';
+require('./bootstrap');
 
-// include css file
-import '../css/app.css';
-
-// For Vue.js
-import { createApp } from 'vue/dist/vue.esm-bundler'
-import PostIndex from './components/Posts/index.vue'
+import { createApp } from 'vue'
+import App from './layouts/App'
 import LaravelVuePagination from 'laravel-vue-pagination';
+import router from './routes/index'
 
-const app = createApp({})
-app.component('posts-index', PostIndex)
+const app = createApp(App)
+app.use(router)
 app.component('Pagination', LaravelVuePagination)
-
 app.mount('#app')

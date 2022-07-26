@@ -17,11 +17,12 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $categoriesIds = Category::query()->pluck('id');
+        $categoryIDs = Category::pluck('id');
+
         return [
             'title' => $this->faker->text(20),
             'content' => $this->faker->paragraphs(5, true),
-            'category_id' => $categoriesIds->random()
+            'category_id' => $categoryIDs->random(),
         ];
     }
 }
