@@ -31,6 +31,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        sleep(2);
         $post = Post::query()->create($request->validated());
 
         return new PostResource($post);
