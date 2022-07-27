@@ -16,7 +16,7 @@ class PostController extends Controller
             ->filter()
             ->search()
             ->order()
-            ->paginate(50);
+            ->paginate(20);
 
         return PostResource::collection($posts);
     }
