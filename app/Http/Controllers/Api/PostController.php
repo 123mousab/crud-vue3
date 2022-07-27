@@ -32,8 +32,33 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         sleep(2);
+
+        if (\request()->hasFile('attachment'))
+        {
+            $filename = $request->file('attachment')->getClientOriginalName();
+            info($filename);
+        }
+
         $post = Post::query()->create($request->validated());
 
         return new PostResource($post);
+    }
+
+    public function show(Post $post)
+    {
+        return new PostResource($post);
+    }
+
+    public function update(Post $post, StorePostRequest $request)
+    {
+        $post->update($request->validated());
+
+        return new PostResource($post);
+    }
+
+    public function destroy(Post $post) {
+        $post->delete();
+
+        return response()->noContent();
     }
 }
