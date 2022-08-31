@@ -23,8 +23,6 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        sleep(2);
-
         if (\request()->hasFile('attachment'))
         {
             $filename = $request->file('attachment')->getClientOriginalName();
